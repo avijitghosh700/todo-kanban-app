@@ -1,7 +1,9 @@
+@import '../scss/variables';
+
 .TodoSection {
   display: grid;
   place-content: center stretch;
-  background-color: #94EC94;
+  background-color: $lite-green;
   min-height: 300px;
 }
 
@@ -10,9 +12,9 @@
     max-width: 400px;
     width: calc(100% - 30px);
     // min-height: 180px;
-    padding: 20px;
-    background-color: #2C3434;
-    border-radius: 5px;
+    padding: 16px;
+    background-color: $dark;
+    border-radius: 10px;
     box-shadow: 0 1px 5px rgba(0, 0, 0, .3),
     0 1px 15px rgba(0, 0, 0, .1);
     margin: 0 auto;

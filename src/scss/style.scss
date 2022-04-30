@@ -1,0 +1,127 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import './variables';
+
+* {
+  font-family: 'Lato', sans-serif;
+}
+
+// Typography
+.heading {
+  margin: 0;
+
+  &__primary {
+    font: {
+      size: 30px;
+    }
+  }
+
+  &__secondary {
+    font: {
+      size: 25px;
+    }
+  }
+
+  &__tertiary {
+    font: {
+      size: 20px;
+    }
+  }
+}
+// END
+
+// Buttons
+.btn {
+  display: grid;
+  place-content: center;
+  border: none;
+  border-radius: 6px;
+
+  &:focus {
+    box-shadow: none !important;
+  }
+
+  &__primary {
+    background-color: $green;
+    color: #fff !important;
+
+    &:hover {
+      background-color: darken($green, 5%);
+    }
+
+    &.muted {
+      background-color: $dark;
+      color: #fff !important;
+
+      &:hover {
+        background-color: darken($dark, 5%);
+      }
+    }
+
+    &.danger {
+      background-color: $red;
+      color: #fff !important;
+
+      &:hover {
+        background-color: darken($red, 5%);
+      }
+    }
+  }
+}
+
+.btn-close {
+  &:focus {
+    box-shadow: none !important;
+  }
+}
+// END
+
+// Credential
+.credential {
+  &__input {
+    height: 45px;
+    border: 2px solid $grey;
+    border-radius: 8px;
+    
+    &::placeholder {
+      transition: all .3s ease-in-out;
+    }
+
+    &:focus {
+      border-color: $green;
+      box-shadow: none !important;
+
+      &::placeholder {
+        color: $green;
+      }
+    }
+  }
+
+  &__textarea {
+    @extend .credential__input;
+    height: auto;
+    min-height: 100px !important;
+  }
+}
+// END
+
+.notFoundWrapper {
+  text-align: center;
+  font-weight: 700;
+  color: $grey;
+}
+
+.Todos {
+  &__container {
+    min-height: 300px;
+    max-height: 500px;
+    padding: 10px;
+    border-radius: 10px;
+    overflow-y: auto;
+    background-color: $dark;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}

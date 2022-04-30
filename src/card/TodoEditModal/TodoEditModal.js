@@ -1,6 +1,8 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
+import './TodoEditModal.scss';
+
 const TodoEditModal = ({ todo, show, updateTodo, handleClose }) => {
   const editTodo = (ev) => {
     const formValue = {
@@ -17,7 +19,11 @@ const TodoEditModal = ({ todo, show, updateTodo, handleClose }) => {
   };
 
   return (
-    <Modal className="TodoEditModal" show={show} onHide={handleClose}>
+    <Modal
+      className="TodoEditModal"
+      show={show}
+      onHide={handleClose}
+    >
       <Modal.Header closeButton>
         <Modal.Title>Edit</Modal.Title>
       </Modal.Header>
@@ -28,7 +34,7 @@ const TodoEditModal = ({ todo, show, updateTodo, handleClose }) => {
             <input
               type="text"
               name="todo"
-              className="form-control"
+              className="form-control credential__input"
               placeholder="Edit todo"
               defaultValue={todo?.value.todo}
             />
@@ -37,7 +43,7 @@ const TodoEditModal = ({ todo, show, updateTodo, handleClose }) => {
           <div className="form-group">
             <textarea
               name="todo_desc"
-              className="form-control"
+              className="form-control credential__textarea"
               placeholder="Edit description"
               defaultValue={todo?.value.description}
             ></textarea>
