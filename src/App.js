@@ -75,7 +75,7 @@ function App() {
           items: completed.filter((_, idx) => idx !== index),
         },
       });
-      completed.filter((_, idx) => idx !== index);
+      return completed.filter((_, idx) => idx !== index);
     });
     localStorage.setItem(
       "DONE",
