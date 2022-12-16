@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
-import { v4 } from 'uuid';
+import { v4 } from "uuid";
 
 import TodoSection from "./todoForm";
 import TodoCard from "./card";
@@ -77,10 +77,7 @@ function App() {
       });
       return completed.filter((_, idx) => idx !== index);
     });
-    localStorage.setItem(
-      "DONE",
-      JSON.stringify(completed.filter((_, idx) => idx !== index))
-    );
+    localStorage.setItem("DONE", JSON.stringify(completed.filter((_, idx) => idx !== index)));
   };
 
   const updateTodo = (value, index) => {
@@ -96,7 +93,7 @@ function App() {
   const reorderTodo = (todoList) => {
     setTodo(() => [...todoList]);
     localStorage.setItem("TODOS", JSON.stringify([...todoList]));
-  }
+  };
   const reorderProgress = (todoList) => {
     setProgress(() => [...todoList]);
     localStorage.setItem("PROGRESS", JSON.stringify([...todoList]));
@@ -111,32 +108,44 @@ function App() {
   const openIndexedModal = (index) => {
     setTodoItem(index > -1 ? { index, value: todo[index] } : null);
     showModal();
-  }
+  };
   // const handleModal = [openIndexedModal, hideModal];
 
   const sourceUpdater = (source, removed) => {
     switch (source.droppableId) {
       case todos:
         // console.log(todos);
-        setTodo((state) => [...state.filter(item => item.todo !== removed.todo)]);
-        localStorage.setItem("TODOS", JSON.stringify([...todo.filter(item => item.todo !== removed.todo)]));
+        setTodo((state) => [...state.filter((item) => item.todo !== removed.todo)]);
+        localStorage.setItem(
+          "TODOS",
+          JSON.stringify([...todo.filter((item) => item.todo !== removed.todo)])
+        );
         break;
       case inProgress:
         // console.log(inProgress);
-        setProgress((state) => [...state.filter(item => item.todo !== removed.todo)]);
-        localStorage.setItem("PROGRESS", JSON.stringify([...progress.filter(item => item.todo !== removed.todo)]));
+        setProgress((state) => [...state.filter((item) => item.todo !== removed.todo)]);
+        localStorage.setItem(
+          "PROGRESS",
+          JSON.stringify([...progress.filter((item) => item.todo !== removed.todo)])
+        );
         break;
       case done:
         // console.log(done);
-        setCompleted((state) => [...state.filter(item => item.todo !== removed.todo)]);
-        localStorage.setItem("DONE", JSON.stringify([...completed.filter(item => item.todo !== removed.todo)]));
+        setCompleted((state) => [...state.filter((item) => item.todo !== removed.todo)]);
+        localStorage.setItem(
+          "DONE",
+          JSON.stringify([...completed.filter((item) => item.todo !== removed.todo)])
+        );
         break;
       default:
-        setTodo((state) => [...state.filter(item => item.todo !== removed.todo)]);
-        localStorage.setItem("TODOS", JSON.stringify([...todo.filter(item => item.todo !== removed.todo)]));
+        setTodo((state) => [...state.filter((item) => item.todo !== removed.todo)]);
+        localStorage.setItem(
+          "TODOS",
+          JSON.stringify([...todo.filter((item) => item.todo !== removed.todo)])
+        );
         break;
     }
-  }
+  };
 
   const footerViewController = (id, list) => {
     switch (id) {
@@ -169,10 +178,10 @@ function App() {
           isDone: false,
         }));
     }
-  }
+  };
 
   const todoManager = (...args) => {
-    const [item, destlist,  result] = args;
+    const [item, destlist, result] = args;
     const { source, destination } = result;
 
     switch (destination.droppableId) {
@@ -193,12 +202,12 @@ function App() {
         reorderTodo(destlist);
         break;
     }
-  }
+  };
 
   const onDragEnd = (result, columns, setColumns) => {
     if (!result.destination) return;
     const { source, destination } = result;
-    
+
     if (source.droppableId !== destination.droppableId) {
       const sourceColumn = columns[source.droppableId];
       const destColumn = columns[destination.droppableId];
@@ -224,7 +233,7 @@ function App() {
       const copiedItems = [...column.items];
       const [removed] = copiedItems.splice(source.index, 1);
       copiedItems.splice(destination.index, 0, removed);
-      
+
       setColumns({
         ...columns,
         [source.droppableId]: {
@@ -234,13 +243,13 @@ function App() {
       });
       todoManager(removed, copiedItems, result);
     }
-  }
+  };
 
   useEffect(() => {
     const TODOS = JSON.parse(localStorage.getItem("TODOS")) || [];
     const PROGRESS = JSON.parse(localStorage.getItem("PROGRESS")) || [];
     const DONE = JSON.parse(localStorage.getItem("DONE")) || [];
-    
+
     setTodo(TODOS);
     setProgress(PROGRESS);
     setCompleted(DONE);
@@ -254,16 +263,12 @@ function App() {
         <section className="Todos py-4">
           <div className="container">
             <div className="row gx-3 mb-3">
-              <DragDropContext
-                onDragEnd={(result) => onDragEnd(result, columns, setColumns)}
-              >
+              <DragDropContext onDragEnd={(result) => onDragEnd(result, columns, setColumns)}>
                 {Object.entries(columns).map(([columnId, column]) => {
                   return (
                     <div className="col-sm-6 col-md-4" key={columnId}>
                       <div className="Todos__header border-bottom border-dark mb-2">
-                        <h4 className="headind heading__secondary mb-1">
-                          {column.title}
-                        </h4>
+                        <h4 className="headind heading__secondary mb-1">{column.title}</h4>
                       </div>
 
                       <Droppable droppableId={columnId}>
@@ -273,39 +278,37 @@ function App() {
                             {...provided.droppableProps}
                             ref={provided.innerRef}
                             style={{
-                              backgroundColor: snapshot.isDraggingOver
-                                ? "#94EC94"
-                                : "#2C3434",
+                              backgroundColor: snapshot.isDraggingOver ? "#94EC94" : "#2C3434",
                             }}
                           >
-                            {(column.items && column.items.length) ? (
-                              column.items.map((item, index) => (
-                                <Draggable
-                                  draggableId={`${columnId}-${index}`}
-                                  key={index}
-                                  index={index}
-                                >
-                                  {(provided) => (
-                                    <div
-                                      ref={provided.innerRef}
-                                      {...provided.draggableProps}
-                                      {...provided.dragHandleProps}
-                                    >
-                                      <TodoCard
-                                        TodoItem={item}
-                                        deleteTodo={deleteTodo}
-                                        deleteDone={deleteDone}
-                                        handleShow={openIndexedModal}
-                                        index={index}
-                                        length={column.items.length}
-                                      />
-                                    </div>
-                                  )}
-                                </Draggable>
-                              ))
-                            ) : (
-                              !snapshot.isDraggingOver && <NotFoundMessage msg={"No task available."} />
-                            )}
+                            {column.items && column.items.length
+                              ? column.items.map((item, index) => (
+                                  <Draggable
+                                    draggableId={`${columnId}-${index}`}
+                                    key={index}
+                                    index={index}
+                                  >
+                                    {(provided) => (
+                                      <div
+                                        ref={provided.innerRef}
+                                        {...provided.draggableProps}
+                                        {...provided.dragHandleProps}
+                                      >
+                                        <TodoCard
+                                          TodoItem={item}
+                                          deleteTodo={deleteTodo}
+                                          deleteDone={deleteDone}
+                                          handleShow={openIndexedModal}
+                                          index={index}
+                                          length={column.items.length}
+                                        />
+                                      </div>
+                                    )}
+                                  </Draggable>
+                                ))
+                              : !snapshot.isDraggingOver && (
+                                  <NotFoundMessage msg={"No task available."} />
+                                )}
                             {provided.placeholder}
                           </div>
                         )}
@@ -319,12 +322,7 @@ function App() {
         </section>
       </main>
 
-      <TodoEditModal
-        todo={todoItem}
-        show={show}
-        updateTodo={updateTodo}
-        handleClose={hideModal}
-      />
+      <TodoEditModal todo={todoItem} show={show} updateTodo={updateTodo} handleClose={hideModal} />
     </div>
   );
 }
