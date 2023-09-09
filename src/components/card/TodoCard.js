@@ -2,11 +2,11 @@ import React from "react";
 import "./TodoCard.scss";
 
 const TodoCardCapHeader = (TodoItem) => {
-  if (TodoItem.todo) {
+  if (TodoItem.title) {
     return (
       <div className="TodoCard__captionHeader">
         <h3 className="TodoCard__heading heading heading__tertiary text-success">
-          {TodoItem.todo}
+          {TodoItem.title}
         </h3>
       </div>
     );
@@ -45,7 +45,7 @@ const TodoCardCapFooter = (props) => {
 
               <button
                 className="btn btn__primary danger"
-                onClick={() => deleteTodo(index)}
+                onClick={() => deleteTodo(TodoItem.id)}
               >
                 <ion-icon name="trash-outline" size="small"></ion-icon>
               </button>

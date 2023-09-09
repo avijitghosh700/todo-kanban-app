@@ -5,7 +5,7 @@ import './TodoSection.scss';
 const TodoForm = ({ addTodo }) => {
   const saveTodo = (ev) => {
     const formValue = {
-      todo: ev.target.todo.value,
+      title: ev.target.todo.value,
       description: ev.target.todo_desc.value,
       isTodo: true,
       isProgress: false,

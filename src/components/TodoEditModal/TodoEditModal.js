@@ -1,42 +1,48 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 
-import './TodoEditModal.scss';
+import "./TodoEditModal.scss";
 
 const TodoEditModal = ({ todo, show, updateTodo, handleClose }) => {
   const editTodo = (ev) => {
     const formValue = {
-      todo: ev.target.todo.value,
+      title: ev.target.title.value,
       description: ev.target.todo_desc.value,
-      isTodo: true,
     };
 
-    ev.target.todo.value && updateTodo(formValue, todo?.index);
+    formValue.title &&
+      updateTodo(
+        {
+          id: todo.value.id,
+          isTodo: true,
+          isProgress: false,
+          done: false,
+          ...formValue,
+        },
+        todo?.index
+      );
 
-    handleClose();
     ev.target.reset();
     ev.preventDefault();
+
+    handleClose();
   };
 
   return (
-    <Modal
-      className="TodoEditModal"
-      show={show}
-      onHide={handleClose}
-    >
+    <Modal className="TodoEditModal" show={show} onHide={handleClose}>
       <Modal.Header closeButton>
         <Modal.Title>Edit</Modal.Title>
       </Modal.Header>
 
-      <form className="TodoEditModal__form" onSubmit={(ev) => editTodo(ev)}>
+      <form className="TodoEditModal__form" onSubmit={editTodo}>
         <Modal.Body>
           <div className="form-group mb-3">
             <input
               type="text"
-              name="todo"
+              name="title"
               className="form-control credential__input"
               placeholder="Edit todo"
-              defaultValue={todo?.value.todo}
+              defaultValue={todo?.value.title}
             />
           </div>
 
