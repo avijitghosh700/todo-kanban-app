@@ -21,7 +21,7 @@ app.use((_req: Request, _res: Response, next: NextFunction) => {
 });
 
 // Route groups
-app.use("/task", taskRoutes(app, express));
+app.use("/api/task", taskRoutes(app, express));
 // END
 
 app.listen(process.env.PORT || 3001, () => {
