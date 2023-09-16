@@ -1,1 +1,1 @@
-# Kanban todo application build on React + Node (TypeScript)
+# Kanban todo application build on React
